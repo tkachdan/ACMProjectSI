@@ -2336,7 +2336,7 @@
       <primary-key name="contest_pkey" columns="id"/>
       <foreign-key name="fk_r4lxckwv6jistt13ncpnff020" columns="nextcontest_id" ref-table="contest" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <exported-key name="fk_r4lxckwv6jistt13ncpnff020" table="contest" schema="public" catalog="acm" columns="nextcontest_id"/>
-      <exported-key name="fk_sks2qge90w9uwodfeyp02j62x" table="person" schema="public" catalog="acm" columns="ismanagerofcontest_id"/>
+      <exported-key name="fk_38s5avy81uyttfyu7xuxinqvq" table="person_contest" schema="public" catalog="acm" columns="ismanagerofcontest_id"/>
       <exported-key name="fk_b4xvktybv8w3ybbwju0xpgpdu" table="team" schema="public" catalog="acm" columns="attendscontest_id"/>
     </table>
     <table name="entity_id_seq" schema="public" catalog="acm" type="SEQUENCE">
@@ -2364,19 +2364,25 @@
       <column name="is_called" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
     </table>
     <table name="person" schema="public" catalog="acm" type="TABLE">
-      <column name="id" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="id" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="birthday" sqlType="timestamp" precision="29" scale="6" nullable="true" jdbcType="93"/>
       <column name="email" sqlType="varchar" precision="255" scale="0" nullable="true" jdbcType="12"/>
       <column name="name" sqlType="varchar" precision="255" scale="0" nullable="true" jdbcType="12"/>
       <column name="university" sqlType="varchar" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="ismanagerofcontest_id" sqlType="int4" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <primary-key name="person_pkey" columns="id"/>
-      <foreign-key name="fk_sks2qge90w9uwodfeyp02j62x" columns="ismanagerofcontest_id" ref-table="contest" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="fk_pkm360yddlg812h59fdo2s3dv" table="person_contest" schema="public" catalog="acm" columns="person_id"/>
       <exported-key name="fk_ehee4k3kpgxqhxen94ps0iifr" table="person_team" schema="public" catalog="acm" columns="person_id"/>
       <exported-key name="fk_hvwkhr3gfdncim5v291q37ln4" table="team_person" schema="public" catalog="acm" columns="teammembers_id"/>
     </table>
+    <table name="person_contest" schema="public" catalog="acm" type="TABLE">
+      <column name="person_id" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="ismanagerofcontest_id" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="person_contest_pkey" columns="person_id,ismanagerofcontest_id"/>
+      <foreign-key name="fk_38s5avy81uyttfyu7xuxinqvq" columns="ismanagerofcontest_id" ref-table="contest" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="fk_pkm360yddlg812h59fdo2s3dv" columns="person_id" ref-table="person" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
     <table name="person_team" schema="public" catalog="acm" type="TABLE">
-      <column name="person_id" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="person_id" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="iscoachofteams_id" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <primary-key name="person_team_pkey" columns="person_id,iscoachofteams_id"/>
       <foreign-key name="fk_ehee4k3kpgxqhxen94ps0iifr" columns="person_id" ref-table="person" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
@@ -2399,11 +2405,10 @@
     </table>
     <table name="team_person" schema="public" catalog="acm" type="TABLE">
       <column name="team_id" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <column name="teammembers_id" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="teammembers_id" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <primary-key name="team_person_pkey" columns="team_id,teammembers_id"/>
       <foreign-key name="fk_hvwkhr3gfdncim5v291q37ln4" columns="teammembers_id" ref-table="person" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="fk_5rth1wwrwaghiicj469kf9cfr" columns="team_id" ref-table="team" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <index name="uk_hvwkhr3gfdncim5v291q37ln4" unique="true" columns="teammembers_id"/>
     </table>
     <procedure name="_pg_char_max_length" schema="information_schema" catalog="acm" type="2">
       <prototype>

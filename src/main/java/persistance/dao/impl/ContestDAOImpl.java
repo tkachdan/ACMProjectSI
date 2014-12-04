@@ -47,9 +47,10 @@ public class ContestDAOImpl implements ContestDAO {
 
     public void updateContest(Contest contest) {
         session.beginTransaction();
-        Contest contestUpdated = (Contest) session.load(Contest.class, contest.getId());
-        contestUpdated = new Contest(contest);
 
+
+        session.update(contest);
+        session.getTransaction().commit();
 
     }
 

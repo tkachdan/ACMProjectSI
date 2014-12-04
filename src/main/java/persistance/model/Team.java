@@ -67,7 +67,7 @@ public class Team {
         this.id = id;
     }
 
-    @OneToOne
+    @ManyToOne
     public Contest getAttendsContest() {
         return attendsContest;
     }
@@ -104,7 +104,7 @@ public class Team {
         this.state = state;
     }
 
-    @OneToMany
+    @ManyToMany
     public Set<Person> getTeamMembers() {
         return teamMembers;
     }

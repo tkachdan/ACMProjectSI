@@ -51,8 +51,8 @@ public class PersonDAOImpl implements PersonDAO {
 
     public void updatePerson(Person person) {
         session.beginTransaction();
-        Person personUpdated = (Person) session.load(Person.class, person.getId());
-        personUpdated = new Person(person);
+        session.update(person);
+        session.getTransaction().commit();
 
 
     }

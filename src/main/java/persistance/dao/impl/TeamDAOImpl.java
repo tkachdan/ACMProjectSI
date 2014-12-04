@@ -51,8 +51,8 @@ public class TeamDAOImpl implements TeamDAO {
 
     public void updateTeam(Team team) {
         session.beginTransaction();
-        Team teamUpdated = (Team) session.load(Team.class, team.getId());
-        teamUpdated = new Team(team);
+        session.update(team);
+        session.getTransaction().commit();
 
 
     }

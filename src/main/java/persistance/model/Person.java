@@ -10,12 +10,12 @@ import java.util.Set;
 @Entity
 @Table(name = "person", schema = "public", catalog = "acm")
 public class Person {
-    private Long id;
+    private int id;
     private String name;
     private String email;
     private String university;
     private Date birthday;
-    private Contest isManagerOfContest;
+    private Set<Contest> isManagerOfContest;
     private Set<Team> isCoachOfTeams;
 
     public Person() {
@@ -39,12 +39,21 @@ public class Person {
     @SequenceGenerator(name = "pk_sequence", sequenceName = "entity_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "pk_sequence")
     @Column(name = "id")
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
+    }
+
+    @ManyToMany
+    public Set<Contest> getIsManagerOfContest() {
+        return isManagerOfContest;
+    }
+
+    public void setIsManagerOfContest(Set<Contest> isManagerOfContest) {
+        this.isManagerOfContest = isManagerOfContest;
     }
 
     public Date getBirthday() {
@@ -74,14 +83,6 @@ public class Person {
         this.isCoachOfTeams = isCoachOfTeams;
     }
 
-    @ManyToOne
-    public Contest getIsManagerOfContest() {
-        return isManagerOfContest;
-    }
-
-    public void setIsManagerOfContest(Contest isManagerOfContest) {
-        this.isManagerOfContest = isManagerOfContest;
-    }
 
     @Column(name = "email")
     public String getEmail() {
