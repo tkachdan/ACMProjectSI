@@ -19,4 +19,8 @@ public interface ContestService {
 
     public void changeCoach(Team team, Person person);
 
+    public void changeStatusOfRegistration(Contest contest, boolean status);
+
+    public void setCoach(Team team, Person person);
+
 }

@@ -1,8 +1,10 @@
 package Service.impl;
 
 import Service.ContestService;
+import persistance.dao.ContestDAO;
 import persistance.dao.PersonDAO;
 import persistance.dao.TeamDAO;
+import persistance.dao.impl.ContestDAOImpl;
 import persistance.dao.impl.PersonDAOImpl;
 import persistance.dao.impl.TeamDAOImpl;
 import persistance.model.Contest;
@@ -18,6 +20,7 @@ import java.util.Set;
 public class ContestServiceImpl implements ContestService {
     TeamDAO teamDAO = new TeamDAOImpl();
     PersonDAO personDAO = new PersonDAOImpl();
+    ContestDAO contestDAO = new ContestDAOImpl();
 
 
     @Override
@@ -47,6 +50,13 @@ public class ContestServiceImpl implements ContestService {
         coachedTeams.add(team);
         personDAO.updatePerson(person);
 
+
+    }
+
+    @Override
+    public void changeStatusOfRegistration(Contest contest, boolean status) {
+        contest.setIsregistrationopen(status);
+        contestDAO.updateContest(contest);
 
     }
 }
