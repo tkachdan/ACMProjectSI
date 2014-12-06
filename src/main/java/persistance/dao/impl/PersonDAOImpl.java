@@ -33,7 +33,7 @@ public class PersonDAOImpl implements PersonDAO {
 
         person = (Person) session
                 .createQuery("from Person person where id = :personID")
-                .setLong("personID", id).uniqueResult();
+                .setInteger("personID", id).uniqueResult();
 
         session.getTransaction().commit();
 

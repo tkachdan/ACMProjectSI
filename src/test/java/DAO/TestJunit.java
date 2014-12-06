@@ -119,18 +119,26 @@ public class TestJunit {
         personDAO.deletePerson(person.getId());
 
 
+        List teamResults = session.createQuery("from Team where id = ?").setParameter(0, team.getId()).list();
+        List contestResults = session.createQuery("from Contest where id = ?").setParameter(0, contest.getId()).list();
+        List personResults = session.createQuery("from Person where id = ?").setParameter(0, person.getId()).list();
 
-       /* List teamResults = session.createQuery("from Team where id = ?").setParameter(0,team.getId()).list();
-        List contestResults = session.createQuery("from Contest where id = ?").setParameter(0,contest.getId()).list();
-        List personResults = session.createQuery("from Person where id = ?").setParameter(0,person.getId()).list();
-
-        if((teamResults.size() > 0) || (contestResults.size() > 0) || (personResults.size() > 0)){
+        if ((teamResults.size() > 0) || (contestResults.size() > 0) || (personResults.size() > 0)) {
             AssertionError error = new AssertionError();
 
         }
 
-*/
 
+    }
+
+    /**
+     * Test get non existing person
+     */
+    @Test
+    public void testGet() {
+        PersonDAO personDAO = new PersonDAOImpl();
+        Person person = personDAO.getPerson(123123);
+        System.out.println(person);
     }
 
     @Test

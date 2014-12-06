@@ -25,6 +25,12 @@ public class ContestServiceImpl implements ContestService {
 
     @Override
     public void registerTeam(Team team, Set<Person> teamMembers, Contest contest) {
+        for (Person p : teamMembers) {
+            //Person person = ;
+            if (personDAO.getPerson(p.getId()) == null) {
+                personDAO.savePerson(p);
+            }
+        }
         team.setTeamMembers(teamMembers);
         team.setAttendsContest(contest);
         teamDAO.updateTeam(team);
@@ -46,7 +52,7 @@ public class ContestServiceImpl implements ContestService {
 
     @Override
     public void changeCoach(Team team, Person person) {
-        Set<Team> coachedTeams = person.getIsCoachOfTeams();
+        Set<Team> coachedTeams = person.getCoachedTeams();
         coachedTeams.add(team);
         personDAO.updatePerson(person);
 
@@ -58,5 +64,12 @@ public class ContestServiceImpl implements ContestService {
         contest.setIsregistrationopen(status);
         contestDAO.updateContest(contest);
 
+    }
+
+    @Override
+    public void setCoach(Team team, Person person) {
+        Set<Team> coachedTeams = person.getCoachedTeams();
+        coachedTeams.add(team);
+        personDAO.updatePerson(person);
     }
 }

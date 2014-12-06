@@ -15,10 +15,15 @@ public class Person {
     private String email;
     private String university;
     private Date birthday;
-    private Set<Contest> isManagerOfContest;
-    private Set<Team> isCoachOfTeams;
+    private Set<Contest> managedContests;
+    private Set<Team> coachedTeams;
+    private boolean isContestManager;
+    private boolean isCoach;
+
 
     public Person() {
+        isContestManager = false;
+        isCoach = false;
     }
 
     public Person(String name, String email, String university, Date birthday) {
@@ -26,6 +31,8 @@ public class Person {
         this.email = email;
         this.university = university;
         this.birthday = birthday;
+        isContestManager = false;
+        isCoach = false;
     }
 
     public Person(Person person) {
@@ -33,6 +40,8 @@ public class Person {
         this.email = person.getEmail();
         this.university = person.getUniversity();
         this.birthday = person.getBirthday();
+        this.isContestManager = person.isContestManager();
+        isCoach = false;
     }
 
     @Id
@@ -48,12 +57,15 @@ public class Person {
     }
 
     @ManyToMany
-    public Set<Contest> getIsManagerOfContest() {
-        return isManagerOfContest;
+    public Set<Contest> getManagedContests() {
+        return managedContests;
     }
 
-    public void setIsManagerOfContest(Set<Contest> isManagerOfContest) {
-        this.isManagerOfContest = isManagerOfContest;
+    public void setManagedContests(Set<Contest> isManagerOfContest) {
+        this.managedContests = isManagerOfContest;
+        if (isManagerOfContest.size() > 0) {
+            isContestManager = true;
+        }
     }
 
     public Date getBirthday() {
@@ -75,14 +87,30 @@ public class Person {
     }
 
     @OneToMany
-    public Set<Team> getIsCoachOfTeams() {
-        return isCoachOfTeams;
+    public Set<Team> getCoachedTeams() {
+        return coachedTeams;
     }
 
-    public void setIsCoachOfTeams(Set<Team> isCoachOfTeams) {
-        this.isCoachOfTeams = isCoachOfTeams;
+    public void setCoachedTeams(Set<Team> isCoachOfTeams) {
+        this.coachedTeams = isCoachOfTeams;
+        this.isCoach = true;
     }
 
+    public boolean isContestManager() {
+        return isContestManager;
+    }
+
+    public void setContestManager(boolean isContestManager) {
+        this.isContestManager = isContestManager;
+    }
+
+    public boolean isCoach() {
+        return isCoach;
+    }
+
+    public void setCoach(boolean isCoach) {
+        this.isCoach = isCoach;
+    }
 
     @Column(name = "email")
     public String getEmail() {
