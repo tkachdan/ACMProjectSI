@@ -8,6 +8,7 @@ import persistance.dao.impl.ContestDAOImpl;
 import persistance.dao.impl.PersonDAOImpl;
 import persistance.dao.impl.TeamDAOImpl;
 import persistance.model.Contest;
+import persistance.model.Person;
 import persistance.model.State;
 import persistance.model.Team;
 
@@ -44,6 +45,26 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public void setTeamRank(Team team, int rank) {
+
+    }
+
+    @Override
+    public void savePerson(Person person) {
+
+    }
+
+    @Override
+    public void insertPersonIntoTeam(Team team, Person person) {
+
+    }
+
+    @Override
+    public void updatePerson(Person person) {
+
+    }
+
+    @Override
+    public void deletePerson(Person person) {
 
     }
 }

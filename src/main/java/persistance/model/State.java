@@ -5,6 +5,6 @@ package persistance.model;
  */
 public enum State {
     ACCEPTED,
-    PEDNING,
+    PENDING,
     CANCELLED;
 }

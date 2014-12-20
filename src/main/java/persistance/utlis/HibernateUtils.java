@@ -23,5 +23,7 @@ public class HibernateUtils {
         return ourSessionFactory;
 
     }
+
+
 // INSERT INTO TABLE (ID, NAME, SURNAME) VALUES (1,'asd', 'gfdfg);
 }

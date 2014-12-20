@@ -2,6 +2,7 @@ package persistance.model;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -15,15 +16,10 @@ public class Person {
     private String email;
     private String university;
     private Date birthday;
-    private Set<Contest> managedContests;
-    private Set<Team> coachedTeams;
-    private boolean isContestManager;
-    private boolean isCoach;
-
+    private Set<Contest> isManagerOfContest;
+    private Set<Team> isCoachOfTeams;
 
     public Person() {
-        isContestManager = false;
-        isCoach = false;
     }
 
     public Person(String name, String email, String university, Date birthday) {
@@ -31,8 +27,6 @@ public class Person {
         this.email = email;
         this.university = university;
         this.birthday = birthday;
-        isContestManager = false;
-        isCoach = false;
     }
 
     public Person(Person person) {
@@ -40,8 +34,6 @@ public class Person {
         this.email = person.getEmail();
         this.university = person.getUniversity();
         this.birthday = person.getBirthday();
-        this.isContestManager = person.isContestManager();
-        isCoach = false;
     }
 
     @Id
@@ -56,16 +48,17 @@ public class Person {
         this.id = id;
     }
 
-    @ManyToMany
-    public Set<Contest> getManagedContests() {
-        return managedContests;
+    @ManyToMany(fetch = FetchType.EAGER)
+    public Set<Contest> getIsManagerOfContest() {
+        return isManagerOfContest;
     }
 
-    public void setManagedContests(Set<Contest> isManagerOfContest) {
-        this.managedContests = isManagerOfContest;
-        if (isManagerOfContest.size() > 0) {
-            isContestManager = true;
-        }
+    public void setIsManagerOfContest(Contest contest) {
+        this.isManagerOfContest.add(contest);
+    }
+
+    public void setIsManagerOfContest(Set<Contest> isManagerOfContest) {
+        this.isManagerOfContest = isManagerOfContest;
     }
 
     public Date getBirthday() {
@@ -86,30 +79,28 @@ public class Person {
         this.name = name;
     }
 
-    @OneToMany
-    public Set<Team> getCoachedTeams() {
-        return coachedTeams;
+    @OneToMany(fetch = FetchType.EAGER)
+    public Set<Team> getIsCoachOfTeams() {
+        return isCoachOfTeams;
     }
 
-    public void setCoachedTeams(Set<Team> isCoachOfTeams) {
-        this.coachedTeams = isCoachOfTeams;
-        this.isCoach = true;
+    public void setIsCoachOfTeams(Team team) {
+        if (this.isCoachOfTeams != null)
+            this.isCoachOfTeams.add(team);
+        else {
+            Set<Team> teams = new HashSet<Team>();
+            teams.add(team);
+            this.setIsCoachOfTeams(teams);
+        }
+
+//        if(this.isCoachOfTeams == null){
+//            this.isCoachOfTeams = new HashSet<>();
+//        }
+//        this.isCoachOfTeams.add(team); ////.getIsCoachOfTeams().add(team);
     }
 
-    public boolean isContestManager() {
-        return isContestManager;
-    }
-
-    public void setContestManager(boolean isContestManager) {
-        this.isContestManager = isContestManager;
-    }
-
-    public boolean isCoach() {
-        return isCoach;
-    }
-
-    public void setCoach(boolean isCoach) {
-        this.isCoach = isCoach;
+    public void setIsCoachOfTeams(Set<Team> isCoachOfTeams) {
+        this.isCoachOfTeams = isCoachOfTeams;
     }
 
     @Column(name = "email")

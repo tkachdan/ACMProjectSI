@@ -19,5 +19,5 @@ public interface TeamDAO {
 
     public void deleteTeam(int id);
 
-
+    public boolean isExists(Team team);
 }

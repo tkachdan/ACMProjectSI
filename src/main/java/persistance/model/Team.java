@@ -67,7 +67,7 @@ public class Team {
         this.id = id;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     public Contest getAttendsContest() {
         return attendsContest;
     }
@@ -76,7 +76,7 @@ public class Team {
         this.attendsContest = attendsContest;
     }
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     public Team getIsCloneOf() {
         return isCloneOf;
     }
@@ -104,9 +104,13 @@ public class Team {
         this.state = state;
     }
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     public Set<Person> getTeamMembers() {
         return teamMembers;
+    }
+
+    public void setTeamMembers(Person teamMember) {
+        this.teamMembers.add(teamMember);
     }
 
     public void setTeamMembers(Set<Person> teamMembers) {

@@ -1,6 +1,7 @@
 package Service;
 
 import persistance.model.Contest;
+import persistance.model.Person;
 import persistance.model.State;
 import persistance.model.Team;
 
@@ -16,5 +17,12 @@ public interface PersonService {
 
     public void setTeamRank(Team team, int rank);
 
+    public void savePerson(Person person);
+
+    public void insertPersonIntoTeam(Team team, Person person);
+
+    public void updatePerson(Person person);
+
+    public void deletePerson(Person person);
 
 }

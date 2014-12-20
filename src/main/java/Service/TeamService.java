@@ -1,18 +1,19 @@
 package Service;
 
-import persistance.model.Contest;
 import persistance.model.Person;
+import persistance.model.State;
 import persistance.model.Team;
 
 /**
  * Created by tkachdan on 05-Dec-14.
  */
 public interface TeamService {
-    public void addTeamMember(Person person);
+    public boolean addMember(Team team, Person member);
 
-    public void attendContest(Team team, Contest contest);
+    public boolean deleteMember(Team team, Person member);
 
-    public void setRank(Team team, int rank);
+    public boolean setCoach(Team team, Person person);
 
+    public boolean setTeamState(Team team, State state);
 
 }

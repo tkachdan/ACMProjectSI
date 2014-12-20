@@ -1,36 +1,34 @@
 package persistance.utlis;
 
 
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.service.ServiceRegistry;
+import org.hibernate.service.ServiceRegistryBuilder;
 
 /**
- * Created by tkachdan on 15-Nov-14.
- * <p>
- * Utils for work with database
+ * Created by Krasotin on 04.12.14.
  */
 public class Service {
+    private static final SessionFactory ourSessionFactory;
+    private static final ServiceRegistry serviceRegistry;
 
-    private HibernateUtils hibernateUtil;
-    private SessionFactory sessionFactory;
-    private Session session;
+    static {
+        try {
+            Configuration configuration = new Configuration();
+            configuration.configure();
 
-    public Service() {
-        this.hibernateUtil = new HibernateUtils();
-        this.sessionFactory = hibernateUtil.getSessionFactory();
-    }
-
-
-    /*
-
-
-    public void printAllTeams(){
-        session = sessionFactory.openSession();
-        List<Team> list = session.createCriteria(Team.class).addOrder(Order.asc("name")).list();
-        for (Team entity : list){
-            System.out.println(entity);
+            serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();
+            ourSessionFactory = configuration.buildSessionFactory(serviceRegistry);
+        } catch (Throwable ex) {
+            throw new ExceptionInInitializerError(ex);
         }
-
     }
-    */
+
+    public static Session getSession() throws HibernateException {
+        return ourSessionFactory.openSession();
+    }
+
 }

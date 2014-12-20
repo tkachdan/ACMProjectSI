@@ -1,21 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DataSourceManagerImpl" format="xml" hash="1282617507">
+  <component name="DataSourceManagerImpl" format="xml" hash="4257895276">
     <data-source source="LOCAL" name="PostgreSQL - acm@localhost" uuid="e0d5690b-2348-42d8-ab77-435d8093072b">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://localhost:5432/acm</jdbc-url>
-      <user-name>postgres</user-name>
-      <user-password>dfdedfcfdfd9dfde</user-password>
       <libraries />
     </data-source>
     <data-source source="LOCAL" name="hibernate.cfg.xml" uuid="7c3aac66-5a44-44cf-9fd4-0c5ee6beac54">
       <driver-ref>postgresql</driver-ref>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://localhost:5432/acm</jdbc-url>
-      <user-name>postgres</user-name>
-      <user-password>dfdedfcfdfd9dfde</user-password>
       <libraries>
         <library>
           <url>file://C:\Users\tkachdan\.m2\repository\postgresql\postgresql\9.1-901-1.jdbc4\postgresql-9.1-901-1.jdbc4.jar</url>
@@ -31,4 +27,3 @@
     </data-source>
   </component>
 </project>
-

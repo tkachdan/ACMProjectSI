@@ -1,7 +1,7 @@
 package persistance.model;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * Created by tkachdan on 03-Dec-14.
@@ -18,6 +18,25 @@ public class Contest {
     private Contest nextContest;
 
     public Contest() {
+    }
+
+    public Contest(int capacity, String name, Date date, Date registrationfrom, Date registrationtill, boolean isregistrationopen) {
+        this.name = name;
+        this.capacity = capacity;
+        this.date = date;
+        this.registrationfrom = registrationfrom;
+        this.registrationtill = registrationtill;
+        this.isregistrationopen = isregistrationopen;
+    }
+
+    public Contest(Integer capacity, String name, Date date, boolean isregistrationopen, Date registrationFrom, Date registrationTo, Contest nextContest) {
+        this.capacity = capacity;
+        this.name = name;
+        this.date = date;
+        this.isregistrationopen = isregistrationopen;
+        this.registrationfrom = registrationFrom;
+        this.registrationtill = registrationTo;
+        this.nextContest = nextContest;
     }
 
     public Contest(String name, int capacity, Date date, Date registrationfrom, Date registrationtill, boolean isregistrationopen) {
@@ -91,7 +110,7 @@ public class Contest {
     }
 
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     public Contest getNextContest() {
         return nextContest;
     }
@@ -162,7 +181,7 @@ public class Contest {
                 ", registrationfrom=" + registrationfrom +
                 ", registrationtill=" + registrationtill +
                 ", isregistrationopen=" + isregistrationopen +
-                ", nextContest=" + nextContest +
+                //", nextContest=" + nextContest +
                 '}';
     }
 }

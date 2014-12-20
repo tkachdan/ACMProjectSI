@@ -19,6 +19,8 @@ public interface ContestDAO {
 
     public void deleteContest(int id);
 
+    public boolean isExists(Contest contest);
+
 
 }
 

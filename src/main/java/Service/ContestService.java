@@ -2,7 +2,6 @@ package Service;
 
 import persistance.model.Contest;
 import persistance.model.Person;
-import persistance.model.State;
 import persistance.model.Team;
 
 import java.util.Set;
@@ -11,16 +10,15 @@ import java.util.Set;
  * Created by tkachdan on 04-Dec-14.
  */
 public interface ContestService {
-    public void registerTeam(Team team, Set<Person> teamMembers, Contest contest);
 
-    public void changeTeamState(Team team, State state);
+    public boolean saveContest(Contest contest);
 
-    public void promoteTeam(Team team, Contest contest);
+    public boolean updateContest(Contest contest);
 
-    public void changeCoach(Team team, Person person);
+    public boolean promoteTeam(Team team, Contest fromContest, Contest toContest);
 
-    public void changeStatusOfRegistration(Contest contest, boolean status);
+    public boolean registerTeam(Team team, Set<Person> teamMembers, Contest contest, Person coach);
 
-    public void setCoach(Team team, Person person);
+    public boolean setManager(Contest contest, Person manager);
 
 }
